@@ -1,5 +1,5 @@
 {
-  "name": "BioSoc Leicester Portal",
+  "name": "Leicester BioSoc",
   "description": "Members portal and public website prototype for the University of Leicester Biosciences Society.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

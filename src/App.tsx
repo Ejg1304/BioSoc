@@ -14,11 +14,12 @@ import {
   Briefcase, FileSymlink, Presentation, Database, 
   Camera, Sparkles, Tag, ChevronRight, Download, 
   ExternalLink, Search, ShieldCheck, Microscope,
-  Lightbulb, Award, HeartHandshake, Eye, Link as LinkIcon
+  Lightbulb, Award, HeartHandshake, Eye, Link as LinkIcon,
+  Star, HelpCircle, ChevronDown, Gift
 } from 'lucide-react';
 
 type MainTab = 'prototype' | 'strategy';
-type PublicSection = 'about' | 'committee' | 'events' | 'photos' | 'sponsors' | 'links';
+type PublicSection = 'about' | 'committee' | 'photos' | 'sponsors' | 'links' | 'perks' | 'faq';
 type MemberSection = 'vault' | 'discounts' | 'careers' | 'alumni' | 'committee_docs';
 
 export default function App() {
@@ -164,12 +165,13 @@ export default function App() {
                   </div>
                   <nav className="space-y-2">
                     {[
-                      { id: 'links', label: 'Quick Links (Bio)', icon: LinkIcon },
+                      { id: 'links', label: 'Quick Link BioSoc', icon: LinkIcon },
                       { id: 'about', label: 'About Society', icon: Building2 },
                       { id: 'committee', label: 'Committee', icon: Users },
-                      { id: 'events', label: 'Events Schedule', icon: Calendar },
                       { id: 'photos', label: 'Event Photos & Gallery', icon: Camera },
                       { id: 'sponsors', label: 'Sponsors & Partners', icon: Award },
+                      { id: 'perks', label: 'Membership Perks', icon: Gift },
+                      { id: 'faq', label: 'FAQ', icon: HelpCircle },
                     ].map((item) => {
                       const isActive = portalMode === 'public' && activePublicNav === item.id;
                       const Icon = item.icon;
@@ -202,12 +204,12 @@ export default function App() {
                 <div className="nav-group pt-2 border-t-2 border-dashed border-slate-300">
                   <div className="label-tag bg-[#1e1e1e] text-[#f472b6] mb-3 flex items-center justify-between w-full">
                     <span className="flex items-center gap-1">
-                      <Lock size={11} /> SECURE_PORTAL
+                      <Lock size={11} /> MEMBERS_PORTAL
                     </span>
                     {isMemberAuthenticated ? (
                       <span className="text-[9px] text-[#4ade80] font-mono-code font-bold">UNLOCKED</span>
                     ) : (
-                      <span className="text-[9px] text-amber-300 font-mono-code font-bold">PAYWALL</span>
+                      <span className="text-[9px] text-fuchsia-300 font-mono-code font-bold bg-[#1e1e1e] border border-fuchsia-300 px-1 rounded-sm">MEMBERS_ONLY</span>
                     )}
                   </div>
 
@@ -298,7 +300,7 @@ export default function App() {
                   {activePublicNav === 'links' && (
                     <div className="space-y-6">
                       <div className="label-tag bg-[#1e1e1e] text-[#fde047]">
-                        <LinkIcon size={12} /> LINKTREE // BIO_LINKS
+                        <LinkIcon size={12} /> BIOLINKS
                       </div>
                       
                       <div className="text-center max-w-xl mx-auto pt-4 space-y-4">
@@ -479,265 +481,17 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Committee View */}
-                  {activePublicNav === 'committee' && (
-                    <div className="space-y-6">
-                      <div className="label-tag bg-[#4ade80] text-[#1e1e1e]">
-                        <Users size={12} /> COMMITTEE_DIRECTORY // 2025-2026
-                      </div>
-                      <div>
-                        <h2 className="font-gaegu text-4xl sm:text-5xl font-bold text-[#1e1e1e] leading-none mb-1">
-                          Meet the BioSoc Committee
+                  {/* Under Construction Sections */}
+                  {['committee', 'photos', 'sponsors', 'perks', 'faq'].includes(activePublicNav) && (
+                    <div className="space-y-6 text-center py-16">
+                      <div className="inline-block p-6 border-[3px] border-[#1e1e1e] shadow-brutal bg-[#fde047] rotate-[-2deg]">
+                        <h2 className="font-gaegu text-4xl sm:text-6xl font-bold text-[#1e1e1e]">
+                          COMING SOON
                         </h2>
-                        <div className="marker-underline"></div>
-                        <p className="text-slate-600 text-sm font-medium">
-                          Elected student leadership representing Biosciences across the Adrian Building & George Davies Centre.
-                        </p>
                       </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {[
-                          { role: 'President', name: 'Zainab Ahmed', degree: 'BSc Biological Sciences (Yr 3)', focus: 'Strategic Vision & Faculty Liaison', tag: 'PRES' },
-                          { role: 'Vice President', name: 'Liam O’Connor', degree: 'BSc Medical Genetics (Yr 2)', focus: 'Events & Guest Seminars', tag: 'VP' },
-                          { role: 'Treasurer', name: 'Maya Patel', degree: 'BSc Biochemistry (Yr 3)', focus: 'Budgeting & SU Grant Allocation', tag: 'FIN' },
-                          { role: 'Academic Secretary', name: 'Dr. Ethan Vance (PGT Rep)', degree: 'MSc Molecular Pathology', focus: 'Vault Curation & Study Circles', tag: 'ACAD' },
-                          { role: 'Social & Wellbeing Sec', name: 'Chloe Davies', degree: 'BSc Biomedical Sciences (Yr 2)', focus: 'BioBall & Lab Crawls', tag: 'SOC' },
-                          { role: 'Careers & Industry Lead', name: 'Tariq Al-Mansoor', degree: 'PhD Cancer Studies', focus: 'Alumni Network & Placements', tag: 'CAR' },
-                        ].map((c, i) => (
-                          <div key={i} className="border-[2.5px] border-[#1e1e1e] p-4 bg-white shadow-brutal-sm flex flex-col justify-between">
-                            <div>
-                              <div className="flex justify-between items-center mb-2">
-                                <span className="label-tag text-[9px] bg-[#1e1e1e] text-[#4ade80]">{c.tag}</span>
-                                <span className="text-[11px] font-mono-code font-bold text-slate-500">{c.role}</span>
-                              </div>
-                              <h4 className="font-bold text-base text-slate-900">{c.name}</h4>
-                              <p className="text-xs text-[#60a5fa] font-semibold mt-0.5">{c.degree}</p>
-                              <p className="text-xs text-slate-600 mt-2 font-medium bg-slate-50 p-2 border border-slate-200">
-                                {c.focus}
-                              </p>
-                            </div>
-                            <div className="mt-3 pt-2 border-t border-slate-200 flex justify-between items-center text-[10px] font-mono-code text-slate-500">
-                              <span>CONTACT</span>
-                              <span className="text-slate-800 font-bold">@leicester.ac.uk</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Events Schedule */}
-                  {activePublicNav === 'events' && (
-                    <div className="space-y-6">
-                      <div className="label-tag bg-[#fde047] text-[#1e1e1e]">
-                        <Calendar size={12} /> TIMETABLE // TERM_CALENDAR
-                      </div>
-                      <div>
-                        <h2 className="font-gaegu text-4xl sm:text-5xl font-bold text-[#1e1e1e] leading-none mb-1">
-                          Upcoming Events & Socials
-                        </h2>
-                        <div className="marker-underline-yellow"></div>
-                      </div>
-
-                      <div className="space-y-3">
-                        {[
-                          { date: 'OCT 24', title: 'AstraZeneca R&D Placement Q&A', time: '17:30 - 19:00', loc: 'George Davies Centre LT1', badge: 'CAREERS', badgeColor: 'bg-[#60a5fa]' },
-                          { date: 'NOV 08', title: 'The Annual BioSoc Pub Quiz & Pizza', time: '19:00 - 22:00', loc: 'Students’ Union Square', badge: 'SOCIAL', badgeColor: 'bg-[#4ade80]' },
-                          { date: 'NOV 19', title: 'BS1030 Lab Report Masterclass', time: '14:00 - 16:00', loc: 'Adrian Building Bennett Rm', badge: 'ACADEMIC', badgeColor: 'bg-[#fde047]' },
-                          { date: 'DEC 04', title: 'Winter BioBall 2026: Black Tie Gala', time: '19:00 - LATE', loc: 'Leicester Grand Hotel', badge: 'TICKETED', badgeColor: 'bg-[#f472b6]' },
-                        ].map((evt, i) => (
-                          <div key={i} className="border-[2.5px] border-[#1e1e1e] p-4 bg-white shadow-brutal-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div className="flex items-center gap-4">
-                              <div className="bg-[#1e1e1e] text-[#4ade80] font-mono-code font-bold text-center px-3 py-2 border border-[#1e1e1e] min-w-[75px]">
-                                {evt.date}
-                              </div>
-                              <div>
-                                <div className="flex items-center gap-2">
-                                  <span className={`text-[9px] font-mono-code font-bold px-1.5 py-0.5 border border-[#1e1e1e] ${evt.badgeColor} text-[#1e1e1e]`}>
-                                    {evt.badge}
-                                  </span>
-                                  <span className="text-xs font-mono-code text-slate-500">{evt.time}</span>
-                                </div>
-                                <h4 className="font-bold text-slate-900 text-sm sm:text-base mt-0.5">{evt.title}</h4>
-                                <p className="text-xs text-slate-600 font-medium">{evt.loc}</p>
-                              </div>
-                            </div>
-                            <button
-                              onClick={() => {
-                                setPortalMode('members');
-                                setActiveMemberNav('vault');
-                              }}
-                              className="btn-brutal text-xs font-mono-code font-bold px-3 py-2 self-start sm:self-auto shrink-0"
-                            >
-                              MEMBER_RSVP 🔒
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Event Photos & Gallery */}
-                  {activePublicNav === 'photos' && (
-                    <div className="space-y-6">
-                      <div className="label-tag bg-[#f472b6] text-[#1e1e1e]">
-                        <Camera size={12} /> PHOTO_LOG // SOCIETY_HIGHLIGHTS
-                      </div>
-                      <div>
-                        <h2 className="font-gaegu text-4xl sm:text-5xl font-bold text-[#1e1e1e] leading-none mb-1">
-                          Event Photos & Society Moments
-                        </h2>
-                        <div className="marker-underline"></div>
-                        <p className="text-slate-600 text-sm font-medium">
-                          Snapshots from our lab socials, career panels, field explorations, and annual gala nights.
-                        </p>
-                      </div>
-
-                      {/* Photo Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {[
-                          {
-                            title: 'Annual Biosciences Gala 2025',
-                            caption: 'Students and faculty celebrating at the Winter BioBall at Grand Hotel.',
-                            date: 'Dec 2025',
-                            tag: 'GALA_NIGHT',
-                            color: 'bg-emerald-100',
-                            accent: '#4ade80'
-                          },
-                          {
-                            title: 'Adrian Lab Practical Group',
-                            caption: 'Second year biomedical students running PCR amplification assays.',
-                            date: 'Nov 2025',
-                            tag: 'LAB_WORK',
-                            color: 'bg-blue-100',
-                            accent: '#60a5fa'
-                          },
-                          {
-                            title: 'GSK Guest Keynote Seminar',
-                            caption: 'Packed lecture theatre in George Davies Centre for pharmaceutical career talk.',
-                            date: 'Oct 2025',
-                            tag: 'CAREERS',
-                            color: 'bg-amber-100',
-                            accent: '#fde047'
-                          },
-                          {
-                            title: 'Bradgate Park Ecology Field Trip',
-                            caption: 'Sampling freshwater macroinvertebrates and biodiversity charting.',
-                            date: 'Oct 2025',
-                            tag: 'FIELD_WORK',
-                            color: 'bg-lime-100',
-                            accent: '#86efac'
-                          },
-                          {
-                            title: 'Freshers Welcome Pizza Night',
-                            caption: 'Over 140 new Biosciences undergrads connecting in the SU Square.',
-                            date: 'Sep 2025',
-                            tag: 'SOCIAL',
-                            color: 'bg-pink-100',
-                            accent: '#f472b6'
-                          },
-                          {
-                            title: 'Research Poster Symposium',
-                            caption: 'PGT and 3rd-year students presenting dissertation findings to examiners.',
-                            date: 'May 2025',
-                            tag: 'ACADEMIC',
-                            color: 'bg-purple-100',
-                            accent: '#c084fc'
-                          }
-                        ].map((photo, i) => (
-                          <div
-                            key={i}
-                            onClick={() => setSelectedPhoto({ url: '', caption: photo.caption, tag: photo.tag, date: photo.date })}
-                            className="border-[2.5px] border-[#1e1e1e] p-3 bg-white shadow-brutal-sm hover:shadow-brutal hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all cursor-pointer group flex flex-col justify-between"
-                          >
-                            <div className={`h-40 ${photo.color} border-2 border-[#1e1e1e] relative flex items-center justify-center overflow-hidden p-4`}>
-                              <div className="absolute inset-0 bg-dot-pattern opacity-20 pointer-events-none" />
-                              <div className="text-center z-10">
-                                <div className="w-10 h-10 mx-auto rounded-full bg-white border-2 border-[#1e1e1e] flex items-center justify-center mb-2 shadow-brutal-sm group-hover:scale-110 transition-transform">
-                                  <Camera size={18} className="text-[#1e1e1e]" />
-                                </div>
-                                <span className="font-mono-code font-bold text-[10px] bg-[#1e1e1e] text-white px-2 py-0.5 uppercase tracking-wider">
-                                  {photo.tag}
-                                </span>
-                              </div>
-                              <span className="absolute bottom-2 right-2 font-mono-code text-[10px] font-bold text-slate-700 bg-white/80 px-1 border border-[#1e1e1e]">
-                                {photo.date}
-                              </span>
-                            </div>
-
-                            <div className="mt-3">
-                              <h4 className="font-bold text-sm text-slate-900 group-hover:text-blue-600 transition-colors">
-                                {photo.title}
-                              </h4>
-                              <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                                {photo.caption}
-                              </p>
-                            </div>
-
-                            <div className="mt-3 pt-2 border-t border-slate-200 flex justify-between items-center text-[10px] font-mono-code font-bold text-slate-500">
-                              <span>TAP_TO_ENLARGE</span>
-                              <Eye size={12} />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Lightbox / Modal when clicking photo */}
-                      {selectedPhoto && (
-                        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-                          <div className="bg-white border-[3px] border-[#1e1e1e] shadow-brutal-lg max-w-lg w-full p-6 space-y-4 relative">
-                            <div className="flex justify-between items-center border-b-2 border-[#1e1e1e] pb-3">
-                              <span className="label-tag bg-[#4ade80] text-[#1e1e1e]">{selectedPhoto.tag}</span>
-                              <button
-                                onClick={() => setSelectedPhoto(null)}
-                                className="font-mono-code text-sm font-bold bg-[#1e1e1e] text-white px-2 py-0.5 hover:bg-rose-600"
-                              >
-                                [ESC_CLOSE]
-                              </button>
-                            </div>
-                            <div className="h-56 bg-slate-100 border-2 border-[#1e1e1e] flex flex-col items-center justify-center text-center p-4">
-                              <Camera size={36} className="text-slate-400 mb-2" />
-                              <span className="font-mono-code text-xs text-slate-500 font-bold">UOL_BIOSOC_ARCHIVE_{selectedPhoto.date}</span>
-                            </div>
-                            <p className="text-sm font-medium text-slate-800">{selectedPhoto.caption}</p>
-                            <div className="text-xs font-mono-code text-slate-500">
-                              Submit your event photos to the Media Officer at <span className="font-bold">biosoc@le.ac.uk</span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Sponsors & Partners */}
-                  {activePublicNav === 'sponsors' && (
-                    <div className="space-y-6">
-                      <div className="label-tag bg-[#60a5fa] text-[#1e1e1e]">
-                        <Award size={12} /> PARTNERSHIPS // INDUSTRY_AFFILIATES
-                      </div>
-                      <div>
-                        <h2 className="font-gaegu text-4xl sm:text-5xl font-bold text-[#1e1e1e] leading-none mb-1">
-                          Our Sponsors & Partners
-                        </h2>
-                        <div className="marker-underline-blue"></div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {[
-                          { name: 'University of Leicester School of Biological Sciences', tier: 'ACADEMIC PATRON', perk: 'Departmental grant funding, lab access & faculty keynote lectures' },
-                          { name: 'AstraZeneca Campus Outreach', tier: 'INDUSTRY PARTNER', perk: 'Direct fast-track insight days & industrial placement mentoring' },
-                          { name: 'Leicester Students’ Union (SU)', tier: 'AFFILIATION', perk: 'Official society charter, room booking & union council representation' },
-                          { name: 'Biochemical Society UK', tier: 'PROFESSIONAL BODY', perk: 'Student membership subsidies and conference travel bursaries' },
-                        ].map((s, i) => (
-                          <div key={i} className="border-[2.5px] border-[#1e1e1e] p-5 bg-white shadow-brutal-sm space-y-2">
-                            <span className="label-tag text-[9px] bg-[#1e1e1e] text-[#4ade80]">{s.tier}</span>
-                            <h4 className="font-bold text-base text-slate-900">{s.name}</h4>
-                            <p className="text-xs text-slate-600 font-medium leading-relaxed bg-slate-50 p-2.5 border border-slate-200">
-                              {s.perk}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
+                      <p className="text-slate-700 font-medium font-mono-code mt-6 max-w-md mx-auto leading-relaxed border-2 border-dashed border-slate-300 p-4">
+                        This section is currently under construction for the new academic year. Check back closer to Freshers Week!
+                      </p>
                     </div>
                   )}
                 </div>
@@ -747,313 +501,17 @@ export default function App() {
               {portalMode === 'members' && (
                 <div className="relative z-10 w-full h-full flex flex-col">
                   
-                  {/* Locked State Paywall / SSO Screen */}
-                  {!isMemberAuthenticated ? (
-                    <div className="my-auto py-8 max-w-lg mx-auto w-full">
-                      <motion.div
-                        initial={{ scale: 0.95, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className="auth-container border-[3px] border-[#1e1e1e] bg-white p-6 sm:p-8 shadow-brutal space-y-4"
-                      >
-                        <div className="label-tag bg-[#1e1e1e] text-white">
-                          <Lock size={12} /> PROTOCOL: SSO_AUTH // MEMBERS_ONLY
-                        </div>
-
-                        <div>
-                          <h2 className="font-gaegu text-4xl sm:text-5xl font-bold text-[#60a5fa] leading-none mb-1">
-                            Authentication Required
-                          </h2>
-                          <div className="marker-underline"></div>
-                        </div>
-
-                        <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
-                          Access to member resources (Academic Vault, Partner Discounts, and Placement Board) requires verification via University SSO. Please authenticate with your institutional credentials: <strong className="text-slate-900 font-mono-code">@student.le.ac.uk</strong>.
-                        </p>
-
-                        <div className="bg-slate-50 border-2 border-[#1e1e1e] p-3 space-y-2 font-mono-code text-xs">
-                          <div className="flex justify-between items-center text-slate-500">
-                            <span>INSTITUTION:</span>
-                            <span className="font-bold text-slate-900">UoL_SHIBBOLETH</span>
-                          </div>
-                          <div className="flex justify-between items-center text-slate-500">
-                            <span>STUDENT_ID:</span>
-                            <span className="font-bold text-slate-900">{userEmail}</span>
-                          </div>
-                        </div>
-
-                        {/* Brutalist SSO Button */}
-                        <button
-                          id="btn-initialize-login"
-                          onClick={handleSSOLogin}
-                          className="sso-btn w-full bg-[#1e1e1e] text-white border-2 border-[#1e1e1e] p-4 font-mono-code text-sm sm:text-base font-bold cursor-pointer shadow-brutal-accent hover:bg-black hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
-                        >
-                          &gt; INITIALIZE_LOGIN
-                        </button>
-
-                        <div className="pt-4 border-t-2 border-dashed border-slate-200 text-center space-y-2">
-                          <p className="text-xs font-mono-code text-slate-500">Not purchased your BioSoc membership yet?</p>
-                          <a
-                            href="https://www.leicesterunion.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block w-full py-2 bg-[#fde047] border-2 border-[#1e1e1e] font-mono-code font-bold text-xs text-[#1e1e1e] shadow-brutal-sm hover:bg-[#fef08a]"
-                          >
-                            PURCHASE MEMBERSHIP ON LEICESTER SU (£5/YR)
-                          </a>
-                        </div>
-                      </motion.div>
+                  {/* Bootleg Mode - Portal Under Construction */}
+                  <div className="my-auto py-8 max-w-lg mx-auto w-full text-center space-y-6">
+                    <div className="inline-block p-6 border-[3px] border-[#1e1e1e] shadow-brutal bg-[#4ade80] rotate-[2deg]">
+                      <h2 className="font-gaegu text-4xl sm:text-6xl font-bold text-[#1e1e1e]">
+                        PORTAL OFFLINE
+                      </h2>
                     </div>
-                  ) : (
-                    /* UNLOCKED Members Portal Views */
-                    <div className="space-y-6">
-                      
-                      {/* Unlocked Header */}
-                      <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-[#1e1e1e] pb-4">
-                        <div>
-                          <div className="label-tag bg-[#4ade80] text-[#1e1e1e] mb-1">
-                            <ShieldCheck size={12} /> AUTHENTICATED_SESSION // {userEmail}
-                          </div>
-                          <h2 className="font-gaegu text-3xl sm:text-4xl font-bold text-slate-900 leading-none">
-                            {activeMemberNav === 'vault' && 'Academic Vault & Module Guides'}
-                            {activeMemberNav === 'discounts' && 'Exclusive Member Partner Discounts'}
-                            {activeMemberNav === 'careers' && 'Biosciences Placements & Careers Hub'}
-                            {activeMemberNav === 'alumni' && 'Verified Alumni Mentorship Network'}
-                            {activeMemberNav === 'committee_docs' && 'Committee Governance & Minutes'}
-                          </h2>
-                        </div>
-
-                        {/* Search in portal */}
-                        <div className="flex items-center gap-2">
-                          <div className="relative">
-                            <Search size={14} className="absolute left-2.5 top-2.5 text-slate-400" />
-                            <input
-                              type="text"
-                              placeholder="Search resources..."
-                              value={searchTerm}
-                              onChange={(e) => setSearchTerm(e.target.value)}
-                              className="pl-8 pr-3 py-1.5 text-xs font-mono-code border-2 border-[#1e1e1e] bg-white focus:outline-none focus:bg-slate-50 w-44 sm:w-56"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Sub-view 1: Academic Vault */}
-                      {activeMemberNav === 'vault' && (
-                        <div className="space-y-4">
-                          <p className="text-xs sm:text-sm text-slate-600 font-medium">
-                            Curated revision packs, lab report formatting standards, and statistical analysis cheat sheets vetted by 3rd-year reps and academic staff.
-                          </p>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {[
-                              { title: 'BS1030 Lab Report Structure & Statistics Template', module: 'BS1030', level: 'Year 1 Core', type: 'PDF + DOCX', downloads: '342' },
-                              { title: 'BS2002 Molecular Cell Biology Revision Synthesis', module: 'BS2002', level: 'Year 2', type: 'Study Pack', downloads: '289' },
-                              { title: 'R-Studio Biostatistics Script for Ecology & Genetics', module: 'GEN_STAT', level: 'All Years', type: 'R Script', downloads: '415' },
-                              { title: 'Dissertation Literature Review Guide (Adrian Faculty)', module: 'BS3001', level: 'Year 3', type: 'Handout', downloads: '198' },
-                              { title: 'Medical Genetics Cytogenetics Exam Breakdown', module: 'MD2014', level: 'Year 2 MedGen', type: 'Q&A Bank', downloads: '164' },
-                              { title: 'Microscopy Image Analysis using ImageJ / Fiji', module: 'LAB_TECH', level: 'Practical', type: 'Video Walkthrough', downloads: '310' },
-                            ]
-                            .filter(item => item.title.toLowerCase().includes(searchTerm.toLowerCase()) || item.module.toLowerCase().includes(searchTerm.toLowerCase()))
-                            .map((doc, i) => (
-                              <div key={i} className="border-[2.5px] border-[#1e1e1e] p-4 bg-white shadow-brutal-sm flex flex-col justify-between hover:shadow-brutal transition-all">
-                                <div>
-                                  <div className="flex justify-between items-start mb-2">
-                                    <span className="label-tag text-[9px] bg-[#60a5fa] text-[#1e1e1e]">{doc.module}</span>
-                                    <span className="text-[10px] font-mono-code font-bold text-slate-500">{doc.level}</span>
-                                  </div>
-                                  <h4 className="font-bold text-sm text-slate-900 mb-1">{doc.title}</h4>
-                                  <div className="flex items-center gap-3 text-xs font-mono-code text-slate-500 mt-2">
-                                    <span>TYPE: {doc.type}</span>
-                                    <span>•</span>
-                                    <span>{doc.downloads} downloads</span>
-                                  </div>
-                                </div>
-                                <button className="mt-3 w-full py-1.5 bg-[#4ade80] border-2 border-[#1e1e1e] font-mono-code font-bold text-xs hover:bg-[#86efac] flex items-center justify-center gap-1.5">
-                                  <Download size={13} /> DOWNLOAD_ASSET
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Sub-view 2: Partner Discounts */}
-                      {activeMemberNav === 'discounts' && (
-                        <div className="space-y-4">
-                          <p className="text-xs sm:text-sm text-slate-600 font-medium">
-                            Show your verified BioSoc membership card or utilize the single-use discount tokens below for textbooks, lab coats, and local student food spots.
-                          </p>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {[
-                              { partner: 'Oxford University Press Life Sciences', offer: '25% Off Biosciences Textbooks', code: 'BIOSOC-OUP-25', tag: 'ACADEMIC' },
-                              { partner: 'Medisave UK Lab Equipment', offer: '15% Off Lab Coats & Dissection Kits', code: 'LEICESTER-LAB15', tag: 'EQUIPMENT' },
-                              { partner: 'Grays Coffee Yard (Leicester)', offer: '20% Off Coffee & Lunch with Student ID', code: 'SHOW_DIGITAL_CARD', tag: 'FOOD_DRINK' },
-                              { partner: 'Biochemical Society Membership', offer: 'Free 1-Year Affiliate Student Pass', code: 'UOL-BIOSOC-FREE', tag: 'AFFILIATION' },
-                            ].map((disc, i) => (
-                              <div key={i} className="border-[2.5px] border-[#1e1e1e] p-4 bg-[#f8fafc] shadow-brutal-sm flex flex-col justify-between">
-                                <div>
-                                  <span className="label-tag text-[9px] bg-[#fde047] text-[#1e1e1e] mb-2">{disc.tag}</span>
-                                  <h4 className="font-bold text-sm text-slate-900">{disc.partner}</h4>
-                                  <p className="text-xs font-semibold text-emerald-700 mt-1">{disc.offer}</p>
-                                </div>
-                                <div className="mt-3 pt-3 border-t border-slate-200">
-                                  <div className="text-[10px] font-mono-code text-slate-500 mb-1">DISCOUNT CODE:</div>
-                                  <div className="font-mono-code text-xs font-bold bg-white border-2 border-dashed border-[#1e1e1e] p-2 text-center select-all">
-                                    {disc.code}
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Sub-view 3: Careers & Roles */}
-                      {activeMemberNav === 'careers' && (
-                        <div className="space-y-4">
-                          <p className="text-xs sm:text-sm text-slate-600 font-medium">
-                            Curated internships, summer studentships, and graduate laboratory roles reserved for Leicester bioscience cohorts.
-                          </p>
-
-                          <div className="space-y-3">
-                            {[
-                              { role: 'Summer Undergraduate Research Intern (SURI)', company: 'Wellcome Trust Sanger Institute', loc: 'Hinxton / Remote', deadline: '30 Nov 2026', stipend: '£420/week' },
-                              { role: 'Industrial Year Placement: Drug Metabolism & Pharmacokinetics', company: 'AstraZeneca Macclesfield', loc: 'Cheshire, UK', deadline: '15 Dec 2026', stipend: '£23,500 pa' },
-                              { role: 'Clinical Trial Laboratory Associate', company: 'University Hospitals of Leicester NHS Trust', loc: 'Leicester Royal Infirmary', deadline: '05 Jan 2027', stipend: 'NHS Band 4' },
-                            ].map((job, i) => (
-                              <div key={i} className="border-[2.5px] border-[#1e1e1e] p-4 bg-white shadow-brutal-sm flex flex-col sm:flex-row justify-between sm:items-center gap-3">
-                                <div>
-                                  <span className="label-tag text-[9px] bg-[#60a5fa] text-[#1e1e1e] mb-1">PLACEMENTS</span>
-                                  <h4 className="font-bold text-sm sm:text-base text-slate-900">{job.role}</h4>
-                                  <p className="text-xs font-semibold text-slate-700">{job.company} • {job.loc}</p>
-                                  <p className="text-xs font-mono-code text-emerald-700 font-bold mt-1">Stipend: {job.stipend} | Closes: {job.deadline}</p>
-                                </div>
-                                <button className="btn-brutal text-xs font-mono-code font-bold px-3 py-2 shrink-0">
-                                  APPLY_VIA_PORTAL
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Sub-view 4: Alumni Network */}
-                      {activeMemberNav === 'alumni' && (
-                        <div className="space-y-4">
-                          <p className="text-xs sm:text-sm text-slate-600 font-medium">
-                            Connect 1-on-1 with verified Leicester Biological Sciences alumni for career mentorship, CV reviews, and postgraduate guidance.
-                          </p>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {[
-                              { name: 'Dr. Sarah Jenkins', grad: 'BSc 2019, PhD 2023', role: 'Senior Bioinformatician at Illumina', area: 'Genomics & Python' },
-                              { name: 'Marcus Sterling', grad: 'BSc Biomedical 2021', role: 'Clinical Scientist at NHS England', area: 'Immunology & Diagnostics' },
-                              { name: 'Aaliyah Khan', grad: 'BSc Biological Sci 2022', role: 'Medical Science Liaison at Novartis', area: 'Pharma & Regulatory' },
-                              { name: 'David Thorne', grad: 'BSc Medical Genetics 2020', role: 'Science Policy Advisor at Wellcome Trust', area: 'Bioethics & Policy' },
-                            ].map((alum, i) => (
-                              <div key={i} className="border-[2.5px] border-[#1e1e1e] p-4 bg-white shadow-brutal-sm flex flex-col justify-between">
-                                <div>
-                                  <div className="flex justify-between items-center mb-1">
-                                    <h4 className="font-bold text-sm text-slate-900">{alum.name}</h4>
-                                    <span className="text-[10px] font-mono-code text-slate-500">{alum.grad}</span>
-                                  </div>
-                                  <p className="text-xs font-semibold text-blue-600">{alum.role}</p>
-                                  <p className="text-xs text-slate-600 mt-2 bg-slate-50 p-2 border border-slate-200">
-                                    Focus: <strong>{alum.area}</strong>
-                                  </p>
-                                </div>
-                                <button className="mt-3 w-full py-1.5 bg-[#fde047] border-2 border-[#1e1e1e] font-mono-code font-bold text-xs hover:bg-[#fef08a]">
-                                  REQUEST_MENTOR_CHAT
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Sub-view 5: Committee Documents (Google Drive Integration) */}
-                      {activeMemberNav === 'committee_docs' && (
-                        <div className="space-y-4">
-                          <p className="text-xs sm:text-sm text-slate-600 font-medium">
-                            Full transparency records for society members: AGM minutes, constitution, financial budget disclosures, and handover guidelines. Connected directly to our Google Drive.
-                          </p>
-
-                          {!driveToken ? (
-                            <div className="border-[3px] border-[#1e1e1e] p-6 bg-slate-50 text-center space-y-4">
-                              <h3 className="font-gaegu text-2xl font-bold">Connect Google Drive</h3>
-                              <p className="text-sm text-slate-600">Please sign in with Google to access the society's internal documents from Google Drive.</p>
-                              <button 
-                                onClick={handleDriveLogin} 
-                                disabled={isLoggingIn}
-                                className="gsi-material-button mx-auto"
-                              >
-                                <div className="gsi-material-button-state"></div>
-                                <div className="gsi-material-button-content-wrapper">
-                                  <div className="gsi-material-button-icon">
-                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style={{display: 'block'}}>
-                                      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
-                                      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
-                                      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
-                                      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
-                                      <path fill="none" d="M0 0h48v48H0z"></path>
-                                    </svg>
-                                  </div>
-                                  <span className="gsi-material-button-contents">{isLoggingIn ? 'Connecting...' : 'Sign in with Google'}</span>
-                                  <span style={{display: 'none'}}>Sign in with Google</span>
-                                </div>
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="space-y-4">
-                              <div className="flex justify-between items-center bg-[#fef08a] border-2 border-[#1e1e1e] p-2 text-xs font-mono-code font-bold">
-                                <span>Connected as: {driveUser?.email}</span>
-                                <button onClick={logout} className="underline hover:text-slate-600">Disconnect</button>
-                              </div>
-
-                              {isLoadingDrive ? (
-                                <div className="text-center p-6 text-sm font-mono-code text-slate-500 border-2 border-dashed border-slate-300">
-                                  FETCHING_DOCS_FROM_DRIVE...
-                                </div>
-                              ) : (
-                                <div className="space-y-2">
-                                  {driveFiles.length === 0 ? (
-                                    <div className="text-center p-6 text-sm font-mono-code text-slate-500 border-2 border-dashed border-slate-300">
-                                      NO_DOCUMENTS_FOUND
-                                    </div>
-                                  ) : (
-                                    driveFiles.map((file) => (
-                                      <div key={file.id} className="border-2 border-[#1e1e1e] p-3 bg-white flex justify-between items-center hover:bg-slate-50 transition-colors">
-                                        <div className="flex items-center gap-3">
-                                          {file.iconLink && <img src={file.iconLink} alt="" className="w-5 h-5" />}
-                                          <div>
-                                            <h4 className="font-bold text-xs sm:text-sm text-slate-900">{file.name}</h4>
-                                            <span className="text-[10px] font-mono-code text-slate-500">
-                                              Modified: {new Date(file.createdTime).toLocaleDateString()}
-                                            </span>
-                                          </div>
-                                        </div>
-                                        <a 
-                                          href={file.webViewLink} 
-                                          target="_blank" 
-                                          rel="noopener noreferrer" 
-                                          className="btn-brutal text-xs font-mono-code px-2.5 py-1 font-bold inline-block"
-                                        >
-                                          OPEN_IN_DRIVE <ExternalLink size={10} className="inline ml-1 mb-0.5"/>
-                                        </a>
-                                      </div>
-                                    ))
-                                  )}
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                    </div>
-                  )}
-
+                    <p className="text-slate-700 font-medium font-mono-code mt-6 leading-relaxed border-2 border-dashed border-slate-300 p-4 bg-white">
+                      The Member Portal is currently being upgraded for the 2025/2026 academic year. Access to the Vault and Placements board will unlock in September!
+                    </p>
+                  </div>
                 </div>
               )}
 
@@ -1157,9 +615,9 @@ export default function App() {
                   </div>
                   <div className="p-3 bg-slate-50 border-2 border-[#1e1e1e]">
                     <span className="label-tag bg-[#fde047] text-[#1e1e1e] text-[9px] mb-1">CONVERSION</span>
-                    <h4 className="font-bold text-sm text-slate-900">Teaser-to-Paywall UX</h4>
+                    <h4 className="font-bold text-sm text-slate-900">Membership Conversion UX</h4>
                     <p className="text-xs text-slate-600 mt-1">
-                      Publicly showcasing module report previews (e.g. BS1030) with blurred content creates high-intent motivation for first-year students to purchase membership during week 1.
+                      Publicly showcasing module report previews (e.g. BS1030) with blurred content creates high-intent motivation for first-year students to purchase SU membership during week 1.
                     </p>
                   </div>
                 </div>
